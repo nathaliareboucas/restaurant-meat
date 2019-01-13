@@ -12,7 +12,7 @@ import { Restaurant } from './restaurant/restaurant.model';
 @Injectable()
 export class RestaurantsService {
 
-  constructor(private http: Http){}
+  constructor(private http: Http) {}
 
   restaurants(): Observable<Restaurant[]> {
     return this.http.get(`${MEAT_API}/restaurants`)
