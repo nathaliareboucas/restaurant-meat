@@ -8,9 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RestaurantComponent implements OnInit {
 
   @Input() restaurant: Restaurant;
-  constructor() { }
 
-  ngOnInit() {
-  }
+  constructor() {}
+
+  ngOnInit() {}
 
 }
