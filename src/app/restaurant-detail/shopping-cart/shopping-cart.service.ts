@@ -1,5 +1,6 @@
 import { MenuItem } from './../menu-item/menu-item.model';
 import { CartItem } from './cart-item.model';
+
 export class ShoppingCartService {
 
   itens: CartItem[] = [];
@@ -8,7 +9,7 @@ export class ShoppingCartService {
     this.itens = [];
   }
 
-  adicionar(item: MenuItem) {
+  addItem(item: MenuItem) {
     let foundItem = this.itens.find((mItem) => mItem.menuItem.id === item.id);
     if (foundItem) {
       foundItem.quantity = foundItem.quantity + 1;
