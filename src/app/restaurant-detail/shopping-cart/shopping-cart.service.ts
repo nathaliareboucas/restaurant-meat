@@ -12,7 +12,7 @@ export class ShoppingCartService {
   addItem(item: MenuItem) {
     let foundItem = this.itens.find((mItem) => mItem.menuItem.id === item.id);
     if (foundItem) {
-      foundItem.quantity = foundItem.quantity + 1;
+      this.increaseQty(foundItem);
     } else {
       this.itens.push(new CartItem(item));
     }
@@ -24,5 +24,16 @@ export class ShoppingCartService {
 
   total(): number {
     return this.itens.map(item => item.value()).reduce((prev, value) => prev + value, 0);
+  }
+
+  increaseQty(item: CartItem) {
+    item.quantity = item.quantity + 1;
+  }
+
+  decreaseQty(item: CartItem) {
+    item.quantity = item.quantity - 1;
+    if (item.quantity === 0) {
+      this.remover(item);
+    }
   }
 }
