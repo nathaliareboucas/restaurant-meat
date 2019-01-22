@@ -3,10 +3,7 @@
 </section>
 
 <section class="content">
-  <section class="invoice">
-    {{form.valid}}
-    {{form.value | json}}
-
+  <section class="invoice">   
     <form #form="ngForm" novalidate>
       <div class="row">
         <div class="col-xs-12">
@@ -34,10 +31,9 @@
         </div>
 
         <div class="col-sm-3 col-xs-6">
-          <div class="form-group">
-            <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Complemento</label>
+          <mt-input-container>            
             <input type="text" class="form-control" name="optionalAddress" ngModel placeholder="Complemento">
-          </div>
+          </mt-input-container>
         </div>
         <!-- /.col -->
       </div>

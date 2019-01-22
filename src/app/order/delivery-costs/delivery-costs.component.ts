@@ -15,7 +15,7 @@ export class DeliveryCostsComponent implements OnInit {
   }
 
   total(): number {
-    return this.delivery + this.itemsValue;
+    return this.delivery + this.itemsValue;    
   }
 
 }

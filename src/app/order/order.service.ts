@@ -1,9 +1,10 @@
 import { MEAT_API } from './../app.api';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { CartItem } from './../restaurant-detail/shopping-cart/cart-item.model';
 import { Injectable } from '@angular/core';
 import { ShoppingCartService } from '../restaurant-detail/shopping-cart/shopping-cart.service';
+import { Order } from './order.model';
 
 @Injectable()
 export class OrderService {
@@ -30,9 +31,14 @@ export class OrderService {
     this.cartService.remover(item);
   }
 
-  checkOrder(order: Order): Observable<string> {
+  checkOrder(order: Order): Observable<Order> {
     const headers = new Headers();
-    headers.append('Content-Type', aplication/json)
-    return this.http.post(`${MEAT_API}/orders`, JSON.stringify(order, )
+    headers.append('Content-Type', 'aplication/json');
+    return this.http.post(`${MEAT_API}/orders`, JSON.stringify(order), new RequestOptions({headers: headers}))
+      .map(response => response.json());
+  }
+
+  clear() {
+    this.cartService.clear();
   }
 }
