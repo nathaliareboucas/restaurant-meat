@@ -4,7 +4,7 @@ import { RadioOption } from './../shared/radio/radio-option.model';
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -16,14 +16,29 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   delivery: number = 8;
   paymentOptions: RadioOption[] = [
-    {label: 'Dinheiro', value: 'MON'},
-    {label: 'Cartão de Débito', value: 'DEB'},
-    {label: 'Cartçao Refeição', value: 'REF'}
+    { label: 'Dinheiro', value: 'MON' },
+    { label: 'Cartão de Débito', value: 'DEB' },
+    { label: 'Cartçao Refeição', value: 'REF' }
   ];
 
+  static equalsTo(group: AbstractControl): { [key: string]: boolean } {
+    const email = group.get('email');
+    const emailConfirmation = group.get('emailConfirmation');
+
+    if (!email || !emailConfirmation) {
+      return undefined;
+    }
+
+    if (email.value !== emailConfirmation.value) {
+      return { emailsNotMatch: true };
+    }
+
+    return undefined;
+  }
+
   constructor(private orderService: OrderService,
-              private router: Router,
-              private formBuiler: FormBuilder) { }
+    private router: Router,
+    private formBuiler: FormBuilder) { }
 
   ngOnInit() {
     this.orderForm = this.formBuiler.group({
@@ -31,10 +46,10 @@ export class OrderComponent implements OnInit {
       email: this.formBuiler.control('', [Validators.required, Validators.email]),
       emailConfirmation: this.formBuiler.control('', [Validators.required, Validators.email]),
       address: this.formBuiler.control('', [Validators.required, Validators.minLength(5)]),
-      number: this.formBuiler.control('', [Validators.required ,Validators.pattern(this.numberPattern)]),
+      number: this.formBuiler.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress: this.formBuiler.control(''),
       paymentOption: this.formBuiler.control('', [Validators.required])
-    });
+    }, { validator: OrderComponent.equalsTo });
   }
 
   itemsValue(): number {
