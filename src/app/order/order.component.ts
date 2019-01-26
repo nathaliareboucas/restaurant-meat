@@ -4,6 +4,7 @@ import { RadioOption } from './../shared/radio/radio-option.model';
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
 
+  orderForm: FormGroup;
   delivery: number = 8;
   paymentOptions: RadioOption[] = [
     {label: 'Dinheiro', value: 'MON'},
@@ -18,9 +20,20 @@ export class OrderComponent implements OnInit {
     {label: 'Cartçao Refeição', value: 'REF'}
   ];
 
-  constructor(private orderService: OrderService, private router: Router) { }
+  constructor(private orderService: OrderService,
+              private router: Router,
+              private formBuiler: FormBuilder) { }
 
   ngOnInit() {
+    this.orderForm = this.formBuiler.group({
+      name: this.formBuiler.control(''),
+      email: this.formBuiler.control(''),
+      emailConfirmation: this.formBuiler.control(''),
+      address: this.formBuiler.control(''),
+      number: this.formBuiler.control(''),
+      optionalAddress: this.formBuiler.control(''),
+      paymentOption: this.formBuiler.control('')
+    });
   }
 
   itemsValue(): number {
@@ -46,9 +59,9 @@ export class OrderComponent implements OnInit {
   checkOrder(order: Order) {
     order.orderItems = this.cartItems()
       .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id));
-      
+
     this.orderService.checkOrder(order).subscribe((orderId: Order) => {
-      this.router.navigate(['/order-sumary']);      
+      this.router.navigate(['/order-sumary']);
       this.orderService.clear();
     });
     console.log(order);
