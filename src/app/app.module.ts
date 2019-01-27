@@ -2,7 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, PreloadAllModules } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -41,7 +41,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule.forRoot(),
