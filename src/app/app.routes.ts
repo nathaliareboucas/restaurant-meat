@@ -5,6 +5,7 @@ import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const ROUTES: Routes = [
   {path: '', component: HomeComponent},
@@ -18,4 +19,5 @@ export const ROUTES: Routes = [
     ]},
   {path: 'order', loadChildren: './order/order.module#OrderModule'},
   {path: 'order-sumary', component: OrderSumaryComponent},
+  {path: '**', component: NotFoundComponent},
 ];
