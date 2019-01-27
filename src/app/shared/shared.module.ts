@@ -9,20 +9,32 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { InputComponent } from './input/input.component';
 import { SnackbarComponent } from './messages/snackbar/snackbar.component';
 import { NotificationService } from './messages/notification.service';
+import { LoginService } from 'app/security/login/login.service';
 
 @NgModule({
   declarations: [InputComponent, RadioComponent, RatingComponent, SnackbarComponent],
   imports: [ FormsModule, ReactiveFormsModule, CommonModule ],
   exports: [
-    InputComponent, RadioComponent, RatingComponent, SnackbarComponent,
-    FormsModule, ReactiveFormsModule, CommonModule
+    InputComponent,
+    RadioComponent,
+    RatingComponent,
+    SnackbarComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule
   ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [RestaurantsService, ShoppingCartService, OrderService, NotificationService]
+      providers: [
+        RestaurantsService,
+        ShoppingCartService,
+        OrderService,
+        NotificationService,
+        LoginService
+      ]
     };
   }
 }
