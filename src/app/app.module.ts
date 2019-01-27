@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { LocationStrategy, HashLocationStrategy} from '@angular/common';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { ROUTES } from './app.routes';
@@ -21,6 +19,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './security/login/login.component';
 
 
 @NgModule({
@@ -36,7 +35,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MenuItemComponent,
     ReviewsComponent,
     OrderSumaryComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +47,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SharedModule.forRoot(),
     RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, {provide: LOCALE_ID, useValue: 'pt-BR'}],
+  providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
