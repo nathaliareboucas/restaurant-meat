@@ -7,12 +7,13 @@ import { RatingComponent } from './rating/rating.component';
 import { RadioComponent } from './radio/radio.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { InputComponent } from './input/input.component';
+import { SnackbarComponent } from './messages/snackbar/snackbar.component';
 
 @NgModule({
-  declarations: [InputComponent, RadioComponent, RatingComponent],
+  declarations: [InputComponent, RadioComponent, RatingComponent, SnackbarComponent],
   imports: [ FormsModule, ReactiveFormsModule, CommonModule ],
   exports: [
-    InputComponent, RadioComponent, RatingComponent,
+    InputComponent, RadioComponent, RatingComponent, SnackbarComponent,
     FormsModule, ReactiveFormsModule, CommonModule
   ]
 })
