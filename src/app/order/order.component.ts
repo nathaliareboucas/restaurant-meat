@@ -1,10 +1,13 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
+
+import {tap} from 'rxjs/operators'
+
 import { CartItem } from './../restaurant-detail/shopping-cart/cart-item.model';
 import { OrderService } from './order.service';
 import { RadioOption } from './../shared/radio/radio-option.model';
-import { Component, OnInit } from '@angular/core';
 import { Order, OrderItem } from './order.model';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -42,7 +45,7 @@ export class OrderComponent implements OnInit {
     private formBuiler: FormBuilder) { }
 
   ngOnInit() {
-    this.orderForm = new FormGroup ({
+    this.orderForm = new FormGroup({
       name: new FormControl('', {
         validators: [Validators.required, Validators.minLength(5)]
       }),
@@ -52,7 +55,7 @@ export class OrderComponent implements OnInit {
       number: this.formBuiler.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress: this.formBuiler.control(''),
       paymentOption: this.formBuiler.control('', [Validators.required])
-    }, { validators: [OrderComponent.equalsTo], updateOn:'blur' });
+    }, { validators: [OrderComponent.equalsTo], updateOn: 'blur' });
   }
 
   itemsValue(): number {
@@ -80,13 +83,13 @@ export class OrderComponent implements OnInit {
       .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id));
 
     this.orderService.checkOrder(order)
-      .do((orderId: string) => {
+      .pipe(tap((orderId: string) => {
         this.orderId = orderId
-      })
+      }))
       .subscribe((orderId: string) => {
         this.router.navigate(['/order-sumary']);
         this.orderService.clear();
-    });
+      });
   }
 
   isOrderCompleted(): boolean {

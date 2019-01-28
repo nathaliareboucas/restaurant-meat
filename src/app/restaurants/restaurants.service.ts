@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/observable/timer'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable, timer } from 'rxjs';
+// import { map, catchError, tap, switchMap} from 'rxjs/operators'
 
 import { MEAT_API } from './../app.api';
 import { Restaurant } from './restaurant/restaurant.model';
