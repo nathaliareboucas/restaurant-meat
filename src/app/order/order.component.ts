@@ -4,7 +4,7 @@ import { RadioOption } from './../shared/radio/radio-option.model';
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -42,15 +42,17 @@ export class OrderComponent implements OnInit {
     private formBuiler: FormBuilder) { }
 
   ngOnInit() {
-    this.orderForm = this.formBuiler.group({
-      name: this.formBuiler.control('', [Validators.required, Validators.minLength(5)]),
+    this.orderForm = new FormGroup ({
+      name: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+      }),
       email: this.formBuiler.control('', [Validators.required, Validators.email]),
       emailConfirmation: this.formBuiler.control('', [Validators.required, Validators.email]),
       address: this.formBuiler.control('', [Validators.required, Validators.minLength(5)]),
       number: this.formBuiler.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress: this.formBuiler.control(''),
       paymentOption: this.formBuiler.control('', [Validators.required])
-    }, { validator: OrderComponent.equalsTo });
+    }, { validators: [OrderComponent.equalsTo], updateOn:'blur' });
   }
 
   itemsValue(): number {
